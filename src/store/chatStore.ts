@@ -20,7 +20,7 @@ interface ChatStore {
     // 状態
     conversationId: string | null;
     isLoading: boolean;
-    messages: Message[],
+    messages: Message[];
     conversations: Conversation[];
 
     // アクション
