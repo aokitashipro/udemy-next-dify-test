@@ -18,8 +18,8 @@ export async function createConversation(data: ChatFlowType, userId: string, que
             difyConversationId: data.conversation_id,
             userId: userId,
             title: query.substring(0, 30) + "...",
-            totalTokens: data.metadata?.usage?.total_tokens || 0,
-            totalCost: parseFloat(data.metadata?.usage?.total_price || '0')
+            totalTokens: data.metadata.usage.total_tokens,
+            totalCost: parseFloat(data.metadata.usage.total_price)
         }
     })
 }
@@ -32,8 +32,8 @@ export async function updateConversation(data: ChatFlowType, userId: string){
                 userId: userId
             }},
         data: {
-            totalTokens: data.metadata?.usage?.total_tokens || 0,
-            totalCost: parseFloat(data.metadata?.usage?.total_price || '0')
+            totalTokens: data.metadata.usage.total_tokens,
+            totalCost: parseFloat(data.metadata.usage.total_price)
         }
     })
 }

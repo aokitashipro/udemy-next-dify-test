@@ -24,7 +24,7 @@ export async function POST(request: NextRequest){
                 conversation_id: conversationId || ''
             })
         })
-        console.log('へん',conversationId)
+        
         const data = await response.json()
         console.log(data)
 
