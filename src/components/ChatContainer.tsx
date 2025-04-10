@@ -6,6 +6,8 @@ import { useChatStore } from "@/store/chatStore"
 
 export default function ChatContainer({ 
   isNewChat,
+  initialMessages,
+  conversationId,
   userId 
 }: ChatContainerProps) {
 
@@ -13,7 +15,6 @@ export default function ChatContainer({
   const { 
     messages, 
     isLoading,
-    conversationId: storeConversationId,
     setConversationId,
     setMessages,
     clearMessage
@@ -30,7 +31,14 @@ export default function ChatContainer({
       clearMessage()
       setConversationId('')
     }
-  }, [isNewChat, clearMessage, setConversationId])
+    if(conversationId){
+      setConversationId(conversationId)
+    }
+    if(initialMessages && initialMessages.length > 0){
+      setMessages(initialMessages)
+    }
+  }, [isNewChat, clearMessage, setConversationId, 
+    initialMessages, conversationId, setMessages])
 
 
   return (
