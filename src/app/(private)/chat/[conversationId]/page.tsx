@@ -31,7 +31,7 @@ export default async function ChatPage({params}: Params) {
 
   try {
 
-    const response = await fetch(`${endpoint}?user=${userId}&conversation_id=${conversationId}`, {
+    const response = await fetch(`${endpoint}?user=${userId}&conversation_id=${conversationId}&limit=100`, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
