@@ -26,7 +26,7 @@ export default function SubscriptionPage() {
     useEffect(()=>{
         if(success){
             toast('サブスクリプション成功', {
-                description: 'Proプランへのサブスリプションが完了しました!'
+                description: 'Proプランへのサブスクリプションが完了しました!'
             })
             router.replace('/subscription')
         }
