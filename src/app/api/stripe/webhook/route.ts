@@ -2,7 +2,11 @@ import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
-import { saveSubscription } from "@/lib/stripe/subscription";
+import { 
+    handleCheckoutCompleted,
+    handleSubscriptionUpdated,
+    handleSubscriptionDeleted
+ } from "@/lib/stripe/webhook";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
@@ -26,6 +30,14 @@ export async function POST(req: NextRequest){
             await handleCheckoutCompleted(event)
         }
 
+        if(event.type === 'customer.subscription.updated'){
+            await handleSubscriptionUpdated(event)
+        }
+
+        if(event.type === 'customer.subscription.deleted'){
+            await handleSubscriptionDeleted(event)
+        }
+
         return NextResponse.json({ received: true })
 
     } catch(error){
@@ -37,24 +49,3 @@ export async function POST(req: NextRequest){
     }
 }
 
-async function handleCheckoutCompleted(event: Stripe.Event){
-    const session = event.data.object as Stripe.Checkout.Session
-    const userId = session.metadata?.userId as string
-    const subscriptionId = session.subscription as string
-
-    // 追加情報の取得
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId)
-    console.log(subscription)
-
-    const priceId = subscription.items.data[0]?.price.id
-    const customer = subscription.customer as string
-    const startDate = new Date(subscription.billing_cycle_anchor * 1000)
-    const endDate = subscription.ended_at 
-    ? new Date(subscription.ended_at * 1000) as Date
-    : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000 ) // 30日後
-    const cancelAtPeriodEnd = subscription.cancel_at_period_end
-
-    await saveSubscription(
-        userId, customer, priceId, subscriptionId, startDate, endDate, cancelAtPeriodEnd
-    )
-}
