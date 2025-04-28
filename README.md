@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Udemy講座 
 
-## Getting Started
+【Next.js】【DifyAPI】認証・継続課金機能付きの生成AIアプリをハンズオンで開発してみよう
 
-First, run the development server:
+の公開コードになります。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+https://www.udemy.com/course/nextjsdifyapi/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## インストール手順
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+git clone git@github.com:aokitashipro/udemy-next-dify-test.git
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+cd udemy-next-dify-test
 
-## Learn More
+npm install
 
-To learn more about Next.js, take a look at the following resources:
+.env 作成
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+DIFY側で作成・取得したURLやAPIキーを記載します。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+DIFY_API_URL=http://localhost/v1
 
-## Deploy on Vercel
+DIFY_API_KEY=xxx
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Prismaの設定
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+npx prisma init # Prismaの初期化
+
+prisma/schema.prisma の設定
+
+provider="sqlite" に変更
+
+.envファイル
+
+postgresqlはコメントアウト
+
+DATABASE_URL="file:./dev.db" # 追記
+
+## マイグレーションとシード実行
+
+npx prisma migrate dev --name init # テーブル作成
+
+npx prisma db sed # シード実行
+
+npx prisma studio # DBの内容を確認
+
+## Auth.jsの設定
+
+npx auth secret # シークレットキー生成
+
+.env.localにAUTH_SECRETが発行されるので、.envに統合
+
+
+
+
