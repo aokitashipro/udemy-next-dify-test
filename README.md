@@ -55,6 +55,7 @@ npx auth secret # シークレットキー生成
 キャッシュクリア
 
 rm -rf .next
+
 rm -rf node_modules/.prisma
 
 依存関係の再インストール
