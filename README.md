@@ -38,7 +38,7 @@ DATABASE_URL="file:./dev.db" # 追記
 
 ## マイグレーションとシード実行
 
-npx prisma migrate dev --name init # テーブル作成
+npx prisma migrate dev --name init # Prismaクライアント作成・テーブル作成
 
 npx prisma db seed # シード実行
 
