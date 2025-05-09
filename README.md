@@ -50,6 +50,23 @@ npx auth secret # シークレットキー生成
 
 .env.localにAUTH_SECRETが発行されるので、.envに統合
 
+## Stripe CLI
+
+ローカルエンドポイントにイベント転送
+
+stripe listen --forward-to localhost:3000/api/stripe/
+
+webhook
+
+.env
+
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+
+ターミナルでイベント確認可能
+
+stripe trigger checkout.session.completed
+
+
 ## Prisma関係でエラーが出たら
 
 全てのマイグレーションファイルを削除
