@@ -40,7 +40,7 @@ DATABASE_URL="file:./dev.db" # 追記
 
 npx prisma migrate dev --name init # テーブル作成
 
-npx prisma db sed # シード実行
+npx prisma db seed # シード実行
 
 npx prisma studio # DBの内容を確認
 
@@ -50,6 +50,22 @@ npx auth secret # シークレットキー生成
 
 .env.localにAUTH_SECRETが発行されるので、.envに統合
 
+## うまくいかない時のおまじない
 
+キャッシュクリア
 
+rm -rf .next
+rm -rf node_modules/.prisma
+
+依存関係の再インストール
+
+npm install
+
+Prismaクライアントの再生成
+
+npx prisma generate
+
+キャッシュなしでビルド
+
+npm run build -- --no-cache
 
