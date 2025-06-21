@@ -54,7 +54,7 @@ npx auth secret # シークレットキー生成
 
 ローカルエンドポイントにイベント転送
 
-stripe listen --forward-to localhost:3000/api/stripe/
+stripe listen --forward-to localhost:3000/api/stripe/webhook
 
 webhook
 
